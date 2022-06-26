@@ -10,8 +10,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+// 사용자id 9자리 숫자 발급을 위한 기능 구현
 public class MemberIdGenerator implements IdentifierGenerator {
-
 
     @Override
     public Serializable generate(SharedSessionContractImplementor session, Object object) throws HibernateException {

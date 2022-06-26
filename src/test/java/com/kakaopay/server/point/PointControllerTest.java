@@ -29,15 +29,15 @@ class PointControllerTest {
     @Test
     void savePoint() throws Exception {
         mockMvc.perform(post("/point/save").param("storeId", String.valueOf(1)).param("barcode", "1071637887").param("price", String.valueOf(400L))).andDo(print()).andExpect(status().isOk());
-
-
     }
 
     @Test
-    void spendPoint() {
+    void spendPoint() throws Exception{
+        mockMvc.perform(post("/point/spend").param("storeId", String.valueOf(1)).param("barcode", "1071637887").param("price", String.valueOf(400L))).andDo(print()).andExpect(status().isOk());
     }
 
     @Test
-    void getHistoryByTerm() {
+    void getHistoryByTerm() throws Exception{
+        mockMvc.perform(post("/point/spend").param("storeId", String.valueOf(1)).param("barcode", "1071637887").param("price", String.valueOf(400L))).andDo(print()).andExpect(status().isOk());
     }
 }

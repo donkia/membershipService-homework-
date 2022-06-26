@@ -25,14 +25,10 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-//@WebMvcTest(BarcodeController.class)
+@WebMvcTest(BarcodeController.class)
 @MockBean(JpaMetamodelMappingContext.class)
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureMockMvc
 class BarcodeControllerTest {
-
-    @LocalServerPort
-    private int port;
 
     @Autowired
     private MockMvc mockMvc;
@@ -40,33 +36,15 @@ class BarcodeControllerTest {
     @MockBean
     private BarcodeService barcodeService;
 
-    @Autowired
-    private TestRestTemplate testRestTemplate;
+
 
     @Test
-    void createBarcode() throws Exception {
+    void 바코드발급() throws Exception {
+        //정상적인 회원번호로 발급할 때
+        mockMvc.perform(post("/barcode").param("memberId", "000000001")).andDo(print()).andExpect(status().isOk());
 
-       // mockMvc.perform(post("/barcode").param("memberId", "000000001")).andDo(print()).andExpect(status().isOk());
-        //mockMvc.perform(post("/barcode").param("memberId", "00000000")).andDo(print()).andExpect(jsonPath("code").value("ERROR-E002")).andExpect(status().is4xxClientError());
-
-        String url = "http://localhost:" + port + "/barcode";
-
-        HttpEntity<BarcodeDto> request = new HttpEntity<>(new BarcodeDto("000000001"));
-        ApiResponseDto responseEntity = testRestTemplate.postForObject(url, request, ApiResponseDto.class);
-        ResponseEntity<ApiResponseDto> responseEntity2 = testRestTemplate.postForEntity(url, new BarcodeDto("000000001"), ApiResponseDto.class);
-
-        HashMap<String, String> hashMap = new HashMap<>();
-        hashMap.put("memberId", "000000001");
-        ResponseEntity<ApiResponseDto> responseEntity3 = testRestTemplate.postForEntity(url, hashMap, ApiResponseDto.class);
-
-
-        System.out.println(responseEntity.toString());
-        System.out.println(responseEntity2.toString());
-        System.out.println(responseEntity3.toString());
-        //assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
-        //assertEquals(responseEntity.getBody()., HttpStatus.OK);
-        //Barcode barcode = barcodeService.createBarcode(barcodeDto.getMemberId());
-        //return new ResponseEntity<>(new ApiResponseDto<>("Success", "성공", barcode), HttpStatus.OK);
+        //비정상적인 회원번호로 발급할 때 -> 에러코드 ERROR-E002 발생
+        mockMvc.perform(post("/barcode").param("memberId", "00000000")).andDo(print()).andExpect(jsonPath("code").value("ERROR-E002")).andExpect(status().is4xxClientError());
 
     }
 }

@@ -19,11 +19,12 @@ import javax.validation.Valid;
 public class BarcodeController {
 
     private final BarcodeService barcodeService;
-
+    
+    //바코드 발급
     @PostMapping("/barcode")
     public ResponseEntity<?> createBarcode(@Valid BarcodeDto barcodeDto, BindingResult bindingResult){
-        log.info("BarcodeDto : " + barcodeDto);
-
+        
+        // 입력값 검증
         if(bindingResult.hasErrors()){
             return new ResponseEntity<>(
                     ApiResponseDto.builder()
@@ -31,6 +32,7 @@ public class BarcodeController {
                             .message(ApiExceptionEnum.INVALID_PARAMETER.getMessage() + bindingResult.getFieldError().getDefaultMessage())
                             .body(null).build(), HttpStatus.BAD_REQUEST);
         }
+        // 바코드 발급
         Barcode barcode = barcodeService.createBarcode(barcodeDto.getMemberId());
         return new ResponseEntity<>(new ApiResponseDto<>("Success", "성공", barcode), HttpStatus.OK);
     }

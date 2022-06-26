@@ -25,17 +25,17 @@ public class PointHistoryResponseDto {
 
     private String storeName;
 
-    private String barcodeId;
+    private String barcode;
 
     private Long price;
 
     @Builder
-    public PointHistoryResponseDto(LocalDateTime approvedAt, String type, StoreCategory category, String storeName, String barcodeId, Long price){
+    public PointHistoryResponseDto(LocalDateTime approvedAt, String type, StoreCategory category, String storeName, String barcode, Long price){
         this.approvedAt = approvedAt;
         this.type = type;
         this.category = category;
         this.storeName = storeName;
-        this.barcodeId = barcodeId;
+        this.barcode = barcode;
         this.price = price;
     }
 }

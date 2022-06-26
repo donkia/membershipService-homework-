@@ -22,11 +22,6 @@ public class ApiExceptionHandler {
     }
 
 
-    @ExceptionHandler(value = IllegalArgumentException.class)
-    public ResponseEntity<?> ArgumentException(IllegalArgumentException e){
-        return new ResponseEntity<>(new ApiResponseDto<>("InvalidParameter", e.getMessage(), null), HttpStatus.BAD_REQUEST);
-    }
-
     @ExceptionHandler(value = Exception.class)
     public ResponseEntity<?> exception(Exception e){
         log.error("시스템 에러", e);

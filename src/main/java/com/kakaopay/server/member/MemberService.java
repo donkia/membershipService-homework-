@@ -14,8 +14,6 @@ public class MemberService {
 
 
     public Member createMember(){
-
         return memberRepository.save(new Member());
-
     }
 }

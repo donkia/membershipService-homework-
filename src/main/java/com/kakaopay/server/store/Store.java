@@ -1,5 +1,6 @@
 package com.kakaopay.server.store;
 
+import com.kakaopay.server.BaseTimeEntity;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
@@ -11,7 +12,7 @@ import javax.persistence.*;
 @ToString
 @Getter
 @Setter
-public class Store {
+public class Store extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

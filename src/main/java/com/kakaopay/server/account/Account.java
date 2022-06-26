@@ -12,18 +12,23 @@ import javax.persistence.*;
 @Getter
 @Setter
 @ToString
+@Table(indexes = @Index(name="i_barcode2", columnList = "barcode"))
+/**
+ * Account : 바코드별 상점 카테고리에 따른 남은 금액을 저장하는 Entity
+ *
+ * */
 public class Account extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long id;    //키값
 
-    private String barcode;
+    private String barcode; //바코드 번호
 
     @Enumerated(EnumType.STRING)
-    private StoreCategory storeCategory;
+    private StoreCategory storeCategory;    //상점 카테고리
 
-    private Long price;
+    private Long price; //현재 금액
 
     public Account(){
 

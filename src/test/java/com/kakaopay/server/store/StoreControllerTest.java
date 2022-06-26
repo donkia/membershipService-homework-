@@ -28,9 +28,11 @@ class StoreControllerTest {
 
     @Test
     void create() throws Exception {
+        //정상적으로 상점을 등록할 때
         mockMvc.perform(post("/store").param("name", "abc-mart").param("category", String.valueOf(StoreCategory.A))).andDo(print()).andExpect(status().isOk());
-        mockMvc.perform(post("/store").param("name", "abc-mart").param("category", "D")).andDo(print()).andExpect(status().is4xxClientError());
 
+        //상점 카테고리가 벗어난 경우 -> 에러코드 'ERROR-S003' 발생
+        mockMvc.perform(post("/store").param("name", "abc-mart").param("category", "D")).andDo(print()).andExpect(status().is4xxClientError());
 
     }
 }

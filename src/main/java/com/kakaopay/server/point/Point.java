@@ -16,7 +16,7 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @ToString
-@Table(indexes = @Index(name="i_barcodeId", columnList = "barcodeId"))
+@Table(indexes = @Index(name="i_barcode", columnList = "barcode"))
 public class Point extends BaseTimeEntity{
 
     @Id
@@ -32,17 +32,17 @@ public class Point extends BaseTimeEntity{
 
     private String storeName;
 
-    private String barcodeId;
+    private String barcode;
 
     private Long price;
 
     @Builder
-    public Point(String type, StoreCategory category, String storeName, String barcodeId, Long price){
+    public Point(String type, StoreCategory category, String storeName, String barcode, Long price){
         this.approvedAt = LocalDate.now();
         this.type = type;
         this.category = category;
         this.storeName = storeName;
-        this.barcodeId = barcodeId;
+        this.barcode = barcode;
         this.price = price;
     }
 
@@ -52,7 +52,7 @@ public class Point extends BaseTimeEntity{
 
     public PointHistoryResponseDto dto(){
         return PointHistoryResponseDto.builder().approvedAt(this.getCreatedDate())
-                .barcodeId(this.barcodeId)
+                .barcode(this.barcode)
                 .category(this.category)
                 .price(this.price)
                 .storeName(this.storeName)

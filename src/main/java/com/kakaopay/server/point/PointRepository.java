@@ -16,7 +16,7 @@ import java.util.List;
 public interface PointRepository extends JpaRepository<Point, Long> {
 
     // 날짜별 포인트 내역 조회
-    @Query("select p from Point p where p.barcodeId = :barcode and p.approvedAt between :startDate and :endDate order by p.approvedAt desc")
+    @Query("select p from Point p where p.barcode = :barcode and p.approvedAt between :startDate and :endDate order by p.approvedAt desc")
     List<Point> findPointByTermJPQL(@Param("startDate") LocalDate startDate, @Param("endDate") LocalDate endDate, @Param("barcode") String barcode);
 
 }

@@ -28,6 +28,7 @@ public class PointController {
     @PostMapping("/point/save")
     public ResponseEntity<?> savePoint(@Valid PointSaveRequestDto pointSaveRequestDto, BindingResult bindingResult){
 
+        //입력값 검증
         if(bindingResult.hasErrors()){
             return new ResponseEntity<>(
                     ApiResponseDto.builder()
@@ -35,9 +36,7 @@ public class PointController {
                             .message(ApiExceptionEnum.INVALID_PARAMETER.getMessage() + bindingResult.getFieldError().getDefaultMessage())
                             .body(null).build(), HttpStatus.BAD_REQUEST);
         }
-        System.out.println("1");
         Point point = pointService.savePoint(pointSaveRequestDto);
-        System.out.println("2");
         return new ResponseEntity<>(new ApiResponseDto<>("Success", "성공", point), HttpStatus.OK);
     }
 
@@ -45,6 +44,7 @@ public class PointController {
     @PostMapping("/point/spend")
     public ResponseEntity<?> spendPoint(@Valid PointSpendRequestDto pointSpendRequestDto, BindingResult bindingResult){
 
+        // 입력값 검증
         if(bindingResult.hasErrors()){
             return new ResponseEntity<>(
                     ApiResponseDto.builder()
@@ -61,6 +61,7 @@ public class PointController {
     @GetMapping("/point/history")
     public ResponseEntity<?> getHistoryByTerm(@Valid PointHistoryRequestDto pointHistoryRequestDto, BindingResult bindingResult){
 
+        // 입력값 검증
         if(bindingResult.hasErrors()){
             return new ResponseEntity<>(
                     ApiResponseDto.builder()
@@ -68,8 +69,10 @@ public class PointController {
                             .message(ApiExceptionEnum.INVALID_PARAMETER.getMessage() + bindingResult.getFieldError().getDefaultMessage())
                             .body(null).build(), HttpStatus.BAD_REQUEST);
         }
-
+        // 포인트 내역 조회
         List<Point> history = pointService.historyPoint(pointHistoryRequestDto);
+
+        // response dto로 변환 작업
         List<PointHistoryResponseDto> dto = new ArrayList<>();
         for(Point p : history){
             dto.add(p.dto());

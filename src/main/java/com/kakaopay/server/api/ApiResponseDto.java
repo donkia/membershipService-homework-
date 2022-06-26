@@ -10,11 +10,11 @@ import lombok.ToString;
 @ToString
 public class ApiResponseDto<T> {
 
-    private String code;
+    private String code;    //결과 코드
 
-    private String message;
+    private String message; // 상세 메시지
 
-    private T body;
+    private T body; //데이터
 
     @Builder
     public ApiResponseDto(String code, String message, T body){

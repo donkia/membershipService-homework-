@@ -13,6 +13,7 @@ public class MemberController {
 
     private final MemberService memberService;
 
+    // 회원 가입
     @PostMapping("/member")
     public ResponseEntity<?> createMember(){
         Member member = memberService.createMember();
